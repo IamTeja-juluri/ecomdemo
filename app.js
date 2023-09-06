@@ -10,7 +10,7 @@ var flash = require('connect-flash');
 const Category = require("./models/category");
 var MongoStore = require("connect-mongo")(session);
 const connectDB = require("./config/db");
-const {secret} = require('./config/retrieveSecrets')
+// const {secret} = require('./config/retrieveSecrets')
 
 
 const app = express();
@@ -38,7 +38,6 @@ app.use(fileUpload({
 const connectPromise = new Promise((resolve, reject) => {
   connectDB()
     .then(() => {
-      console.log('secret=',secret)
       console.log("Connected to the database");
       resolve();
     })
