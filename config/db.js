@@ -4,8 +4,10 @@ const mongoose = require("mongoose");
 
 const connectDB = async () => {
   try {
-    const uri = process.env.MONGO_URI;
+    // const uri = process.env.MONGO_URI;
     // const uri = process.env.MONGO_URI || "mongodb://localhost/food_ecommerce";
+    const uri ="mongodb+srv://user01:userpwd01@atlascluster.8eaer0j.mongodb.net/?retryWrites=true&w=majority"
+
     await mongoose
       .connect(uri, {
         bufferCommands: false,

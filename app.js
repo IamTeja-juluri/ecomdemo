@@ -20,9 +20,12 @@ require("./config/passport");
 const fileUpload = require('express-fileupload')
 const cloudinary = require('cloudinary').v2
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,       // can use env variables like this
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_SECRET_KEY,
+  // cloud_name: process.env.CLOUD_NAME,       // can use env variables like this
+  // api_key: process.env.CLOUDINARY_API_KEY,
+  // api_secret: process.env.CLOUDINARY_SECRET_KEY,
+  cloud_name: 'dialkq4hj' ,       // can use env variables like this
+  api_key: '944785622397673' ,
+  api_secret: 'rM0VcOvm2Mq6N6zo2Jg5v4rDvjo'
 })
 app.use(express.urlencoded({ extended: false }));
 app.use(fileUpload({

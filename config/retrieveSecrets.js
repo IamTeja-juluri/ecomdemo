@@ -29,7 +29,7 @@
 
 const AWS = require('aws-sdk');
 
-AWS.config.update({ region: "ap-south-1" });
+AWS.config.update({ region: "eu-north-1" });
 
 // Create an AWS Secrets Manager client
 const secretsManager = new AWS.SecretsManager();
