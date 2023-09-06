@@ -1,0 +1,58 @@
+<%- include ../partials/new_header %>
+
+
+<!-- Start slides -->
+ 
+<!-- Start All Pages -->
+<div class="all-page-title page-breadcrumb" style="background-image: url('/images/slider-03.jpg'); height: 400px;">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Welcome to Aap ki Dukaan</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- End slides -->
+
+  <!-- Start Menu -->
+	<div class="menu-box">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="heading-title text-center">
+						<h2>Categories</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="special-menu text-center">
+						<div class="button-group filter-button-group">
+							<% if (categories) { %>
+								<div style="text-align: center;">
+									<% categories.forEach(function(category) { %>
+									  <div style="display: inline-block; width: 33.33%; padding: 10px; box-sizing: border-box; text-align: center;">
+										<div style="position: relative;">
+										  <img src="<%=category.imagePath.secure_url%>" class="img-fluid" style="width: 400px; height: 200px;" alt="Image">
+										  <a href="/products/<%= category._id %>" class="btn btn-dark" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;">
+											<%= category.title %>
+										  </a>
+										</div>
+									  </div>
+									<% }); %>
+								  </div>								  
+							<% } %>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<!-- End Menu -->
+
+
+    
+	<%- include ../partials/new_footer %>

@@ -1,0 +1,92 @@
+<%- include ../admin_partials/admin_header %>
+
+
+  <!-- Flash messages -->
+<div class="row mt-3 mb-3">
+  <div class="col-md-12 m-auto">
+      <% if (message.length > 0) { %>
+      <div id="success" class="alert alert-success">
+      <%= message %>
+      </div>
+      <% } %>
+  </div>
+</div>
+<div class="small-container">
+  <div class="row">
+    <div class="col-6">  
+      <h2 class="title">Orders</h2>
+    </div>
+  </div>
+  
+  <form method="POST" action="/admin/all_orders/?all_orders=true">
+    <input type="hidden" name="_csrf" value="<%=csrfToken %>">
+    <button class="btn btn-primary" type="submit">All Orders</button>
+  </form>
+
+  <br>
+  <br>
+  <br>
+
+  <form method="POST" action="/admin/all_orders">
+    <input type="hidden" name="_csrf" value="<%=csrfToken %>">
+    <label for="date-input">Select a date:</label>
+    <input type="date" id="date-input" name="date">
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+
+<% if(orders) { %>
+  <table>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Created At</th>
+        <th>Item Name</th>
+        <th>Item Quantity</th>
+        <th>Item Price</th>
+        <th>Cart Total Quantity</th>
+        <th>Cart Total Cost</th>
+        <th>Total Amount</th>
+        <th>Payment id</th>
+        <th>Shipping Info</th>
+        <th>Download Receipt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (orders.length > 0) { %>
+        <% orders.forEach(function(order) { %>
+          <tr>
+            <td><%= order.user.username %></td>
+            <td><%= order.createdAt.toLocaleDateString() %></td>
+            <% order.cart.items.forEach(function(item) { %>
+              <td><%= item.title %></td>
+              <td><%= item.qty %></td>
+              <td><%= item.price %></td>
+            <% }); %>
+            <td><%= order.cart.totalQty %></td>
+            <td><%= order.cart.totalCost %></td>
+            <td><%= order.totalAmount %></td>
+            <td><%= order.paymentId %></td>
+            <td width="25%">
+              Street: <%= order.shippingInfo.street %><br>
+              City: <%= order.shippingInfo.city %><br>
+              Phone No: <%= order.shippingInfo.phoneNo %><br>
+              Pin Code: <%= order.shippingInfo.pinCode %><br>
+              State: <%= order.shippingInfo.state %>
+            </td>
+            <td>
+              <form action="/admin/download_receipt/<%= (order._id) %>" method="POST">
+                <input type="hidden" name="_csrf" value="<%=csrfToken %>">
+                <button class="btn btn-sm btn-primary type="submit" >Download Receipt</button>
+              </form>
+          </tr>
+        <% }); %>
+      <% } else { %>
+        <tr>
+          <td colspan="7">No orders found.</td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+  <% } %>
+
+

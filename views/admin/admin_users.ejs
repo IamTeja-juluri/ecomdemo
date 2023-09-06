@@ -1,0 +1,39 @@
+<%- include ../admin_partials/admin_header %>
+
+  <!-- Flash messages -->
+<div class="row mt-3 mb-3">
+    <div class="col-md-12 m-auto">
+        <% if (message.length > 0) { %>
+        <div id="success" class="alert alert-success">
+        <%= message %>
+        </div>
+        <% } %>
+    </div>
+</div>
+  <div class="small-container">
+    <div class="row">
+      <div class="col-6">  
+        <h2 class="title">Users</h2>
+      </div>
+    </div>
+    <div class="row">
+      <% if(users.length > 0) { %>
+        <% for(var i=0; i<users.length; i++) { %>
+        <div class="col-4">
+              <a href="/admin/edit_user/<%= (users[i]._id) %>?edit=true" style="background-color: #00ff95;"  type="button" class="btn btn-warning">Edit</a>
+              <h2><%=users[i].username%></h2>
+              <hr />
+              <p> <strong>Email:</strong> <p> <%=users[i].email%> </p> </p>
+              <p class="btn btn-block btn-primary mt-3 mb-3 button-style""><% if(users[i].isAdmin) {%> Admin <% } else { %> User <%} %>
+              </p>
+            </div>
+            <%} %>
+            <% } else { %>
+              <p>No posts found.</p>
+            <% } %>
+    </div>
+  </div>
+
+ 
+</div>
+

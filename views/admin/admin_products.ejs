@@ -1,0 +1,54 @@
+<%- include ../admin_partials/admin_header %>
+
+  <!-- Flash messages -->
+  <div class="row mt-3 mb-3">
+    <div class="col-md-12 m-auto">
+      <% if (message.length > 0) { %>
+      <div id="success" class="alert alert-success">
+        <%= message %>
+      </div>
+      <% } %>
+    </div>
+  </div>
+  <div class="small-container">
+    <div class="row">
+      <div class="col-6">  
+        <h2 class="title">Products</h2>
+      </div>
+      <div class="col-4">  
+        <a href="/admin/add_products" type="button" class="btn btn-primary">Create</a>
+      </div>
+    </div>
+    <div class="row">
+      <% if(products.length > 0) { %>
+        <% for(var i=0; i<products.length; i++) { %>
+        <div class="col-4">
+          <img style="height: 200px; width: 70%;" src="<%=products[i].imagePath.secure_url%>" class="img-fluid product-img" alt="product image"/>
+          <a href="/admin/edit_product/<%= (products[i]._id) %>?edit=true" style="background-color: #00ff95;"  type="button" class="btn btn-warning">Edit</a>
+          <form action="/admin/delete_product" method="POST">
+            <input type="hidden" name="_csrf" value="<%=csrfToken %>">
+            <input type="hidden" value="<%= products[i]._id %>" name="productID">
+            <button style="background-color: #FF0000;" class="btn btn-danger type="submit" >Delete</button>
+          </form>
+          <h2><%=products[i].title%></h2>
+          <hr />
+          <p class="price">Rs<%=products[i].price%></p>
+          <p> <strong>Description:</strong> <p> <%=products[i].description %> </p> </p>
+          <p><strong>Category:</strong> <%=products[i].category.title%></p>
+          <p><strong>Brand: </strong><%=products[i].manufacturer%></p>
+          <p><strong>Product code:</strong> <%=products[i].productCode%></p>
+          <p><strong>Date added to the store:</strong> <%= moment(products[i].createdAt).format( 'MMMM Do YYYY')%></p>
+          <p class="btn btn-block btn-secondary mt-3 mb-3 button-style""><% if(products[i].available) {%> In stock <% } else { %>Sold out <%} %>
+          </p>
+        </div>
+        <%} %>
+        <% } else { %>
+          <p>No posts found.</p>
+        <% } %>
+    </div>
+
+
+<br>
+<br>
+<br>
+

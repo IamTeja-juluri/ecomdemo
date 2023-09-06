@@ -1,0 +1,50 @@
+<%- include ../admin_partials/admin_header %>
+
+  <!-- Flash messages -->
+  <div class="row mt-3 mb-3">
+    <div class="col-md-12 m-auto">
+      <% if (message.length > 0) { %>
+      <div id="success" class="alert alert-success">
+        <%= message %>
+      </div>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="small-container">
+    <div class="row">
+      <div class="col-4">  
+        <h2 class="title">Categories</h2>
+      </div>
+      <div class="col-4">  
+        <a href="/admin/add_category" type="button" class="btn btn-primary">Create</a>
+      </div>
+    </div>
+    <div class="row">
+        <% if(categories.length > 0) { %>
+        <% for(var i=0; i<categories.length; i++) { %>
+          <div class="col-4">
+            <img style="height: 200px; width: 70%;" src="<%=categories[i].imagePath.secure_url%>" class="img-fluid product-img" alt="category image"/>
+            <a href="/admin/edit_category/<%= (categories[i]._id) %>?edit=true" style="background-color: #00ff95;" type="button" class="btn btn-sm btn-warning">Edit</a>
+            <form action="/admin/delete_category" method="POST">
+              <input type="hidden" name="_csrf" value="<%=csrfToken %>">
+              <input type="hidden" value="<%= categories[i]._id %>" name="categoryID">
+              <button style="background-color: #FF0000;" class="btn btn-sm btn-danger type="submit" >Delete</button>
+            </form>
+            <h2><%=categories[i].title%></h2>
+            <p><strong>Date added to the store:</strong> <%= moment(categories[i].createdAt).format( 'MMMM Do YYYY')%></p>
+            <!-- <p><strong>Slug:</strong> <%=categories[i].slug%></p> -->
+            <hr />
+            </p>
+            
+          </div>
+        <%} %>
+        <% } else { %>
+          <p>No posts found.</p>
+        <% } %>
+    </div>
+  </div>
+
+
+</div>
+

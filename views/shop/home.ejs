@@ -1,0 +1,110 @@
+<%- include ../partials/header %> <%- include ../partials/categories-navbar%>
+
+<!-- Top Carousel -->
+<div class="text-center hero-container">
+  <img class="d-block w-100 hero-image" src="/images/whole_food.jpg" alt="logo" style="background-size: cover; height:480px; padding-top:80px;justify-content:center;"></a>
+  <div class="hero-text">
+  </div>
+</div>
+<div class="header">
+  <div class="container">
+  </div>
+</div>
+    
+<!-- Store's categories section -->
+<div class="container">
+  <h3 class="text-center mb-3 mt-4">Store's Categories</h3>
+  <% if (categories) { %>
+  <div class="row text-center m-auto">
+    <% for(let i=0; i<categories.length; i++){ %>
+      <div class="col-lg-3 col-md-3 col-sm-12 text-center ml-2">
+        <a class="title-link" href="/products/<%=categories[i]._id%>">
+          <img src="https://res.cloudinary.com/dqwuf58sd/image/upload/v1667024088/cld-sample-4.jpg"  width="125px" alt="category" class="circle-img" />
+        </a>
+          <h4 class="mb-3 mt-3"><%=categories[i].title%></h4>
+        <!-- </a> -->
+      </div>
+    <%} %>
+    <div class="col-lg-1 col-md-1 col-sm-12 text-center mx-auto">
+      <a href="/products">
+        <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+  <%}%>
+</div>
+
+<hr class="gradient-style" />
+
+<!-- Latest products slider -->
+<div class="container mb-4 mt-4">
+  <!--Carousel Wrapper-->
+  <div id="products-carousel" class="carousel slide carousel-multi-item" data-ride="carousel">
+    <!--Controls-->
+    <div class="controls-top mb-2">
+      <div class="row">
+        <div class="col-8">
+          <h3>Latest Products</h3>
+        </div>
+      </div>
+    </div>
+    <!--/.Controls-->
+
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+      <!--First slide-->
+      <div class="carousel-item active">
+        <% if (products) { %>
+        <div class="row">
+          <% for (let product of products) { %>        
+            <!-- always shows top 3 products as latest products -->
+          <div class="col-md-4 product-index-box">
+            <div class="single-product d-flex flex-column h-100">
+              <a
+                class="title-link"
+                href="/products/detail/<%=product._id%>"
+              >
+                <img
+                  src="<%= product.imagePath.secure_url %>"
+                  alt="Bag"
+                  class="img-fluid"
+              /></a>
+              <div class="product-info">
+                <a
+                  class="title-link"
+                  href="/products/detail/<%=product._id%>"
+                >
+                  <h6 class="mt-2 mb-2"><%= product.title %></h6></a
+                >
+                <div class="price">$<%= product.price %></div>
+              </div>
+              <% if(product.available) {%>
+              <a
+                href="/add-to-cart/<%=product._id%>"
+                class="btn btn-block btn-secondary button-style mt-auto mb-2"
+              >
+                Add to Shopping Cart
+              </a>
+              <% } else { %>
+              <a
+                href="#"
+                class="btn btn-block btn-danger button-style-danger mt-2 mb-2"
+              >
+                Sold out
+              </a>
+              <%} %>
+            </div>
+          </div>
+          <%}%>
+        <%}%>
+        </div>
+      </div>
+      <!--/.First slide-->
+
+      
+    <!--/.Slides-->
+  </div>
+  <!--/.Carousel Wrapper-->
+</div>
+
+<%- include ../partials/footer %>

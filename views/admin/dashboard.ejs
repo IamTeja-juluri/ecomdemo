@@ -1,0 +1,49 @@
+<%- include ../admin_partials/admin_header %>
+
+
+<div id="page-container">
+
+    <div id="content-wrap">
+    <div class="row">
+        <div class="col-md-8 m-auto">
+      <h1 class="mt-4 mb-4">Dashboard</h1>
+      <!-- <a href="/user/signin">Products</a> -->
+       <!-- Flash messages -->
+      <div class="row mt-3 mb-3">
+        <div class="col-md-12 m-auto">
+          <% if (message.length > 0) { %>
+          <div id="success" class="alert alert-success">
+            <%= message %>
+          </div>
+          <% } %>
+      </div>
+      <div class="row mt-3 mb-3">
+        <div class="col-md-12 m-auto">
+          <% if(message.length > 0) { %>
+          <div id="success" class="alert alert-success">
+            <%=message %>
+          </div>
+          <% } %>
+      </div>
+      <div class="categories">
+        <div class="small-container">
+            <div class="row">
+                <div class="col-3">
+                  <a class="nav-link active" style:"vertical-align: middle;" aria-current="page" href="/admin/all_products">Products<img src="/images/food-basket.jpg"></a>
+                </div>
+                <div class="col-3">
+                  <a class="nav-link active" style:"vertical-align: middle;" aria-current="page" href="/admin/all_users">Users<img src="/images/users_stock_photo.jpg"></a>
+                </div>
+                <div class="col-3">
+                  <a class="nav-link active" style:"vertical-align: middle;" aria-current="page" href="/admin/all_orders">Orders<img src="/images/order_stock_photo.png"></a>
+                </div>
+                <div class="col-3">
+                  <a class="nav-link active" style:"vertical-align: middle, text-align:center;" aria-current="page" href="/admin/all_categories">Category<img src="/images/categories_stock_image.jpg"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+  </div>
+</div>

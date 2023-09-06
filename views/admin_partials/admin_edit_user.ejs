@@ -1,0 +1,46 @@
+<%- include ../admin_partials/admin_header %>
+
+ <!-- Flash messages -->
+ <div class="row mt-3 mb-3">
+    <div class="col-md-12 m-auto">
+      <% if (message.length > 0) { %>
+      <div id="success" class="alert alert-success">
+        <%= message %>
+      </div>
+      <% } %>
+  </div>
+<div style="width: 50vw; margin-left : 25vw;">
+<form method="POST" action="/admin/<% if (editing) { %>edit_user<% } %>"" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="<%=csrfToken %>">
+
+    <div class="form-row align-items-center">
+        <div class="col-6">
+            <label for="exampleInputEmail1">Username</label>
+            <input type="string" name="username" class="form-control" id="title" placeholder="Enter Username" value="<% if (editing) { %><%= user.username %><% } %>" disabled="<% if (editing) { %>disabled<% } %>">
+        </div>
+        <div class="col-6">
+            <label for="exampleInputEmail1">Email</label>
+            <input type="string" name="email" class="form-control" id="title" placeholder="Enter Title" value="<% if (editing) { %><%= user.email %><% } %>" disabled="<% if (editing) { %>disabled<% } %>">
+        </div>
+        <div class="col-6">
+            <label for="exampleInputEmail1">Address</label>
+            <input type="string" name="address" class="form-control" id="title" placeholder="Enter Title" value="<% if (editing) { %><%= user.address.street +  user.address.city %><% } %>" disabled="<% if (editing) { %>disabled<% } %>">
+        </div>
+        <br/>
+        <div class="form-check col-6">
+            <input type="checkbox" name="isAdmin" class="form-check-input" id="exampleCheck1" <% if (editing && user.isAdmin) { %>checked<% } %>>
+            <label class="form-check-label" for="exampleCheck1">Admin</label>
+        </div>
+        <br/>
+        </div>
+    </div>
+        <% if (editing) { %>
+            <input type="hidden" value="<%= user._id %>" name="userID">
+            <% } %>
+
+        <button type="submit" style="width: 50vw; margin: auto;" class="btn btn-primary"><% if (editing) { %>Update User<% } else { %>Add
+            User<% } %></button>
+    
+  </form>
+</div>
+  
