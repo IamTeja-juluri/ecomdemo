@@ -119,7 +119,7 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-var port = process.env.SERVER_PORT || 3000;
+var port = process.env.SERVER_PORT || 3005;
 app.set("port", port);
 app.listen(port, () => {
   console.log("Server running at port " + port);
