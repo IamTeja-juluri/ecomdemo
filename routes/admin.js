@@ -322,8 +322,10 @@ router.post("/add_category",
         req.flash('message', emsg)
         res.redirect("/admin/add_category");
       }
+      
+      const categoryCheck = await Category.find({ categoryCode: req.body.categoryCode });
 
-      if(await Category.find({ categoryCode: req.body.categoryCode })){
+      if(categoryCheck.length > 0){
         req.flash('message', `Category with this category code ( ${req.body.categoryCode} ) already exist`)
         return res.redirect("/admin/add_category");
       }
@@ -446,11 +448,14 @@ router.post("/delete_category", async(req, res) =>{
   try{
       //first delete the image from cloudinary
       let findCategory = await Category.findById(req.body.categoryID)
+
+      // Delete the image from Cloudinary
       deletedOld = await cloudinary.uploader.destroy(findCategory.imagePath.id, {
         invalidate: true,
       })
+
       //then delete the image link from the databse & everything else
-      let result = await Category.findByIdAndRemove(req.body.productID);
+      let result = await Category.findByIdAndRemove(req.body.categoryID);
       if(result){
         req.flash('message', "Successfully deleted")
       } 
