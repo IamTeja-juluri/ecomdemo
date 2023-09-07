@@ -29,7 +29,7 @@ cloudinary.config({
 app.use(express.urlencoded({ extended: false }));
 app.use(fileUpload({
     useTempFiles: true, 
-    tempFileDir: "/temp/",
+    tempFileDir: path.join(__dirname, "/temp/"),
 }))
 
 // mongodb configuration
