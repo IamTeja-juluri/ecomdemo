@@ -124,10 +124,8 @@ app.listen(port, async () => {
   try{  
     //get secretsString:
 		const secretsString = await retrieveSecrets();
-    console.log(secretsString);
 		//write to .env file at root level of project:
 		await fs.writeFile(".env", secretsString);
-    console.log(secretsString);
     console.log("Server running at port " + port);
   }catch(error){
     //log the error and crash the app
