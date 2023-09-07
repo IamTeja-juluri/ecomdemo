@@ -10,8 +10,8 @@ var flash = require('connect-flash');
 const Category = require("./models/category");
 var MongoStore = require("connect-mongo")(session);
 const connectDB = require("./config/db");
-// const {secret} = require('./config/retrieveSecrets')
-
+const fs = require("fs").promises;
+const retrieveSecrets = require("./config/retrieveSecrets");
 
 const app = express();
 require("./config/passport");
@@ -19,6 +19,7 @@ require("./config/passport");
 
 const fileUpload = require('express-fileupload')
 const cloudinary = require('cloudinary').v2
+
 cloudinary.config({
   // cloud_name: process.env.CLOUD_NAME,       // can use env variables like this
   // api_key: process.env.CLOUDINARY_API_KEY,
@@ -27,6 +28,7 @@ cloudinary.config({
   api_key: '944785622397673' ,
   api_secret: 'rM0VcOvm2Mq6N6zo2Jg5v4rDvjo'
 })
+
 app.use(express.urlencoded({ extended: false }));
 app.use(fileUpload({
     useTempFiles: true, 
@@ -103,6 +105,15 @@ app.use("/user", usersRouter);
 app.use("/pages", pagesRouter);
 app.use("/", indexRouter);
 
+
+//routes to verify that the secrets were retrieved successfully.
+app.get("/secrets", (req, res) => {
+	return res.status(200).json({
+		SECRET_1: process.env.SECRET_1,
+		SECRET_2: process.env.SECRET_2,
+	});
+});
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -121,8 +132,18 @@ app.use(function (err, req, res, next) {
 
 var port = process.env.SERVER_PORT || 3005;
 app.set("port", port);
-app.listen(port, () => {
-  console.log("Server running at port " + port);
+app.listen(port, async () => {
+  try{  
+    //get secretsString:
+		const secretsString = await retrieveSecrets();
+		//write to .env file at root level of project:
+		await fs.writeFile(".env", secretsString);
+    console.log("Server running at port " + port);
+  }catch(error){
+    //log the error and crash the app
+		console.log("Error in setting environment variables", error);
+		process.exit(-1);
+  }
 });
 
 module.exports = app;
