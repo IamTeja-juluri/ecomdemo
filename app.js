@@ -21,12 +21,9 @@ const fileUpload = require('express-fileupload')
 const cloudinary = require('cloudinary').v2
 
 cloudinary.config({
-  // cloud_name: process.env.CLOUD_NAME,       // can use env variables like this
-  // api_key: process.env.CLOUDINARY_API_KEY,
-  // api_secret: process.env.CLOUDINARY_SECRET_KEY,
-  cloud_name: 'dialkq4hj' ,       // can use env variables like this
-  api_key: '944785622397673' ,
-  api_secret: 'rM0VcOvm2Mq6N6zo2Jg5v4rDvjo'
+  cloud_name: process.env.CLOUD_NAME,       // can use env variables like this
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET_KEY
 })
 
 app.use(express.urlencoded({ extended: false }));
@@ -58,8 +55,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(session({
-    // secret: process.env.SESSION_SECRET,
-    secret:'thisismysecret123#',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: new MongoStore({
@@ -105,14 +101,6 @@ app.use("/user", usersRouter);
 app.use("/pages", pagesRouter);
 app.use("/", indexRouter);
 
-
-//routes to verify that the secrets were retrieved successfully.
-app.get("/secrets", (req, res) => {
-	return res.status(200).json({
-		SECRET_1: process.env.SECRET_1,
-		SECRET_2: process.env.SECRET_2,
-	});
-});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
