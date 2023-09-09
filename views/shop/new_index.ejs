@@ -4,8 +4,8 @@
   
 
   <!-- Start All Pages -->
-  <div class="all-page-title page-breadcrumb" style="background-image: url('/images/slider-01.jpg'); height: 400px;">
-		<div class="container text-center">
+  <div class="all-page-title page-breadcrumb" style="background-image: url('<%= pageName === 'All Products' ? '/images/AllProducts.png' : '/images/AllCategories.jpg' %>'); height: 500px; background-size: contain; background-repeat: no-repeat; background-position: center;">
+    <div class="container text-center">
 			<div class="row">
 				<div class="col-lg-12">
                 <% if(pageName == 'All Products') { %>
